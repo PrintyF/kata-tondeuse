@@ -14,5 +14,7 @@ public class TondeuseTest {
         tondeuse.actions = new String[]{"D"};
         tondeuse.direction = "N";
         assertThat(tondeuse.getFinalPosition(5, 5), is("0 0 E"));
+        tondeuse.direction = "E";
+        assertThat(tondeuse.getFinalPosition(5, 5), is("0 0 S"));
     }
 }
