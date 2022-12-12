@@ -12,11 +12,11 @@ public class TondeuseTest {
         tondeuse.posX = 0;
         tondeuse.posY = 0;
         tondeuse.actions = new String[]{"D"};
-        tondeuse.direction = "N";
+        tondeuse.direction = Directions.NORTH;
         assertThat(tondeuse.getFinalPosition(5, 5), is("0 0 E"));
-        tondeuse.direction = "E";
+        tondeuse.direction = Directions.EAST;
         assertThat(tondeuse.getFinalPosition(5, 5), is("0 0 S"));
-        tondeuse.direction = "S";
+        tondeuse.direction = Directions.SOUTH;
         assertThat(tondeuse.getFinalPosition(5, 5), is("0 0 W"));
     }
 }
