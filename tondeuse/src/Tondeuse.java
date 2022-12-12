@@ -9,6 +9,8 @@ public class Tondeuse {
     public String getFinalPosition(int limitX, int limitY) {
         if ("E".equals(direction))
             return "0 0 S";
+        else if ("S".equals(direction))
+            return "0 0 W";
         return "0 0 E";
     }
 }
