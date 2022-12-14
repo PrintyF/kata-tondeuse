@@ -14,4 +14,7 @@ public enum Directions {
     Directions turnRight() {
         return directions.get(directions.indexOf(this) + 1 % 4);
     }
+    Directions turnLeft() {
+        return directions.get((directions.indexOf(this) + 3) % 4);
+    }
 }

@@ -19,4 +19,30 @@ public class TondeuseTest {
         tondeuse.direction = Directions.SOUTH;
         assertThat(tondeuse.getFinalPosition(5, 5), is("0 0 W"));
     }
+    @Test
+    public void leftTurn() {
+        tondeuse.posX = 0;
+        tondeuse.posY = 0;
+        tondeuse.actions = new String[]{"G"};
+        tondeuse.direction = Directions.NORTH;
+        assertThat(tondeuse.getFinalPosition(5, 5), is("0 0 W"));
+        tondeuse.direction = Directions.EAST;
+        assertThat(tondeuse.getFinalPosition(5, 5), is("0 0 N"));
+        tondeuse.direction = Directions.SOUTH;
+        assertThat(tondeuse.getFinalPosition(5, 5), is("0 0 E"));
+    }
+
+    @Test
+    public void moveForward() {
+        tondeuse.posX = 0;
+        tondeuse.posY = 0;
+        tondeuse.actions = new String[]{"A"};
+        tondeuse.direction = Directions.EAST;
+        assertThat(tondeuse.getFinalPosition(5, 5), is("1 0 E"));
+
+    }
+
+
+
+
 }
