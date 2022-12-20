@@ -56,4 +56,15 @@ public class TondeuseTest {
         assertThat(tondeuse.getFinalPosition(5, 5), is("5 0 E"));
     }
 
+    @Test
+    public void chainActions() {
+        tondeuse.posX = 0;
+        tondeuse.posY = 0;
+        tondeuse.actions = new String[]{"A", "G", "A"};
+        tondeuse.direction = Direction.SOUTH;
+        assertThat(tondeuse.getFinalPosition(5, 5), is("1 1 E"));
+
+    }
+
+
 }

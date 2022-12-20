@@ -37,12 +37,14 @@ public class Tondeuse {
 
     public String getFinalPosition(int limitX, int limitY) {
         Pair<Integer, Integer> limits = new Pair<>(limitX, limitY);
-        if ("G".equals(actions[0]))
-            this.turnLeft();
-        else if ("D".equals(actions[0]))
-            this.turnRight();
-        else
-            this.moveForward(limits);
+        for (String action: actions) {
+            if ("G".equals(action))
+                this.turnLeft();
+            else if ("D".equals(action))
+                this.turnRight();
+            else
+                this.moveForward(limits);
+        }
         return posX + " " + posY  + " " + direction.getValue();
     }
 }
