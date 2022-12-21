@@ -16,4 +16,12 @@ public enum Direction {
         return value;
     }
 
+    public static Direction getDirectionFromValue(String value) {
+        for (Direction direction: directions) {
+            if (direction.value.equals(value))
+                return direction;
+        }
+        return null;
+    }
+
 }

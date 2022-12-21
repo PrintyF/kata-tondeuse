@@ -1,49 +1,47 @@
 import java.util.Map;
-import java.util.function.Consumer;
-import org.testng.internal.collections.Pair;
 
 public class Tondeuse {
     int posX;
     int posY;
+
+    int limitX;
+    int limitY;
     Direction direction;
 
-    String[] actions;
+    String actions;
 
-    private final Map<String, Consumer<Pair<Integer, Integer>>> move = Map.of(
-            "S", (limit) -> {
-                if (limit.second() > posY + 1) posY++;
+    private final Map<String, Runnable> move = Map.of(
+            "N", () -> {
+                if (limitY > posY) posY++;
             },
-            "E", (limit) -> {
-                if (limit.first() > posX + 1) posX++;
+            "E", () -> {
+                if (limitX > posX) posX++;
             },
-            "W", (limit) ->  {
+            "W", () ->  {
                 if (posX > 0) posX--;
             },
-            "N", (limit) -> {
+            "S", () -> {
                 if (posY > 0) posY--;
             });
 
-    void turnRight() {
-        direction = Direction.directions.get((Direction.directions.indexOf(direction) + 1) % 4);
-    }
-    void turnLeft() {
-        direction = Direction.directions.get((Direction.directions.indexOf(direction) + 3) % 4);
-    }
-
-    void moveForward(Pair<Integer, Integer> limits) {
-       move.get(direction.getValue()).accept(limits);
+    void turn(String action) {
+        int offset = "G".equals(action) ? 3 : 1;
+        direction = Direction.directions.get(
+                (Direction.directions.indexOf(direction) + offset) % 4
+        );
     }
 
+    void moveForward() {
+       move.get(direction.getValue()).run();
+    }
 
-    public String getFinalPosition(int limitX, int limitY) {
-        Pair<Integer, Integer> limits = new Pair<>(limitX, limitY);
-        for (String action: actions) {
-            if ("G".equals(action))
-                this.turnLeft();
-            else if ("D".equals(action))
-                this.turnRight();
+
+    public String getFinalPosition() {
+        for (String action: actions.split("")) {
+            if ("A".equals(action))
+                this.moveForward();
             else
-                this.moveForward(limits);
+                this.turn(action);
         }
         return posX + " " + posY  + " " + direction.getValue();
     }
