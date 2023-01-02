@@ -1,4 +1,5 @@
-import java.util.Arrays;
+package tondeuse;
+
 import java.util.List;
 
 public enum Direction {
@@ -6,7 +7,7 @@ public enum Direction {
 
     private final String value;
     public static final List<Direction> directions =
-            Arrays.asList(NORTH, EAST, SOUTH, WEST);
+            List.of(NORTH, EAST, SOUTH, WEST);
 
     Direction(String value) {
         this.value = value;
