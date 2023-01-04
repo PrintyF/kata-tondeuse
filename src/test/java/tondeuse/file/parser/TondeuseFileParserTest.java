@@ -1,20 +1,22 @@
 package tondeuse.file.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TondeuseFileParserTest {
-    private final TondeuseFileParser fileParser = new TondeuseFileParser();
-
     @Test
     public void getTondeusesFromFile() throws IOException {
-        String results = fileParser.getTondeusesByFile("/Users/codeworks/IdeaProjects/kata-tondeuse/src/test/ressources/tondeusesInput");
+        String path = "src/test/resources/tondeusesInput";
+        File file = new File(path);
 
-        assertThat(results, is("1 3 N\n" + "5 1 E"));
+        String absolutePath = file.getAbsolutePath();
+        String results = TondeuseFileParser.getTondeusesByFile(absolutePath);
+
+        assertEquals(results, "1 3 N\n" + "5 1 E");
     }
 
 }

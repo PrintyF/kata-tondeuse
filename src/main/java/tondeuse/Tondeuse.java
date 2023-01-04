@@ -3,14 +3,12 @@ package tondeuse;
 import util.VoidLambda;
 
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class Tondeuse {
     int posX;
     int posY;
 
     int limitX;
-
     int limitY;
     Direction direction;
 
