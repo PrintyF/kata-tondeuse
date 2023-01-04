@@ -105,7 +105,7 @@ class TondeuseTest {
     }
 
     @Test
-    public void chain_actions() {
+    public void should_chain_actions() {
         tondeuse.setPosX(1);
         tondeuse.setPosY(1);
         tondeuse.setActions("AGA");
