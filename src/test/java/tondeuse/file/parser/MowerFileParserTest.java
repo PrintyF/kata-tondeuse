@@ -7,14 +7,14 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TondeuseFileParserTest {
+public class MowerFileParserTest {
     @Test
-    public void getTondeusesFromFile() throws IOException {
+    public void getMowersFromFile() throws IOException {
         String path = "src/test/resources/tondeusesInput";
         File file = new File(path);
 
         String absolutePath = file.getAbsolutePath();
-        String results = TondeuseFileParser.getTondeusesByFile(absolutePath);
+        String results = MowerFileParser.getMowersFromFile(absolutePath);
 
         assertEquals(results, "1 3 N\n" + "5 1 E");
     }
