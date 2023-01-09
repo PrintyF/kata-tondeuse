@@ -1,39 +1,22 @@
 package tondeuse;
 
-import util.VoidLambda;
-
-import java.util.Map;
-
 public class Mower {
     private Coordinates coordinates;
 
-    private MowerMap map;
+    private final MowerMap map;
 
     private Direction direction;
 
     private String actions;
 
 
-    private final Map<String, VoidLambda> move = Map.of(
-            "N", () -> {
-                if (map.getLimitY() > coordinates.getY()) coordinates.moveNorth();
-            },
-            "E", () -> {
-                if (map.getLimitX() > coordinates.getX()) coordinates.moveEast();
-            },
-            "W", () -> {
-                if (coordinates.getX() > 0) coordinates.moveWest();
-            },
-            "S", () -> {
-                if (coordinates.getY() > 0) coordinates.moveSouth();
-            });
-
     public void setPosition(Coordinates coordinates) {
         this.coordinates = coordinates;
     }
 
-    public Mower(Coordinates coordinates) {
+    public Mower(Coordinates coordinates, MowerMap map) {
         this.coordinates = coordinates;
+        this.map = map;
     }
 
     private void turn(String action) {
@@ -43,7 +26,9 @@ public class Mower {
         );
     }
     private void moveForward() {
-        move.get(direction.getValue()).run();
+        Coordinates nextCoordinates = coordinates.getNextCoordinates(direction.getValue());
+        if (!map.isOutOfBound(nextCoordinates))
+            coordinates.moveTo(nextCoordinates);
     }
 
 
@@ -65,7 +50,4 @@ public class Mower {
         this.actions = actions;
     }
 
-    public void setMap(MowerMap map) {
-        this.map = map;
-    }
 }

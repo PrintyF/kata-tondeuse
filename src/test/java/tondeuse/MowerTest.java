@@ -12,9 +12,7 @@ class MowerTest {
 
     @BeforeEach
     void settings() {
-        mower = new Mower(new Coordinates(0 , 0));
-        MowerMap map = new MowerMap(5, 5);
-        mower.setMap(map);
+        mower = new Mower(new Coordinates(0 , 0), new MowerMap(5, 5));
     }
 
     @Nested
@@ -29,17 +27,17 @@ class MowerTest {
             @Test
             void should_facing_east_when_north() {
                 mower.setDirection(Direction.NORTH);
-                assertEquals(mower.getFinalPosition(), "0 0 E");
+                assertEquals("0 0 E", mower.getFinalPosition());
             }
             @Test
             void should_facing_south_when_facing_east() {
                 mower.setDirection(Direction.EAST);
-                assertEquals(mower.getFinalPosition(), "0 0 S");
+                assertEquals("0 0 S", mower.getFinalPosition());
             }
             @Test
             void should_facing_west_when_south() {
                 mower.setDirection(Direction.SOUTH);
-                assertEquals(mower.getFinalPosition(), "0 0 W");
+                assertEquals("0 0 W", mower.getFinalPosition());
             }
         }
 
@@ -53,17 +51,17 @@ class MowerTest {
             @Test
             void should_facing_west_when_north() {
                 mower.setDirection(Direction.NORTH);
-                assertEquals(mower.getFinalPosition(), "0 0 W");
+                assertEquals("0 0 W", mower.getFinalPosition());
             }
             @Test
             void should_facing_north_when_east() {
                 mower.setDirection(Direction.EAST);
-                assertEquals(mower.getFinalPosition(), "0 0 N");
+                assertEquals("0 0 N", mower.getFinalPosition());
             }
             @Test
             void should_facing_est_when_south() {
                 mower.setDirection(Direction.SOUTH);
-                assertEquals(mower.getFinalPosition(), "0 0 E");
+                assertEquals("0 0 E", mower.getFinalPosition());
             }
         }
 
@@ -79,25 +77,25 @@ class MowerTest {
         @Test
         public void should_move_one_east() {
             mower.setDirection(Direction.EAST);
-            assertEquals(mower.getFinalPosition(), "1 0 E");
+            assertEquals("1 0 E", mower.getFinalPosition());
         }
 
         @Test
         public void should_move_one_south() {
             mower.setPosition(new Coordinates(0, 1));
             mower.setDirection(Direction.SOUTH);
-            assertEquals(mower.getFinalPosition(), "0 0 S");
+            assertEquals("0 0 S", mower.getFinalPosition());
         }
         @Test
         public void should_not_move_because_of_out_of_bound_min() {
             mower.setDirection(Direction.SOUTH);
-            assertEquals(mower.getFinalPosition(), "0 0 S");
+            assertEquals("0 0 S", mower.getFinalPosition());
         }
         @Test
         public void should_not_move_because_of_out_of_bound_max() {
             mower.setPosition(new Coordinates(5, 0));
             mower.setDirection(Direction.EAST);
-            assertEquals(mower.getFinalPosition(), "5 0 E");
+            assertEquals("5 0 E", mower.getFinalPosition());
         }
     }
 
@@ -106,7 +104,7 @@ class MowerTest {
         mower.setPosition(new Coordinates(1, 1));
         mower.setActions("AGA");
         mower.setDirection(Direction.SOUTH);
-        assertEquals(mower.getFinalPosition(), "2 0 E");
+        assertEquals("2 0 E", mower.getFinalPosition());
     }
 
 }

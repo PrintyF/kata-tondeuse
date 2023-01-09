@@ -9,11 +9,10 @@ public class MowerMap {
         this.y = y;
     }
 
-    public int getLimitY() {
-        return this.y;
-    }
-
-    public int getLimitX() {
-        return this.x;
+    public boolean isOutOfBound(Coordinates coordinates) {
+        return  coordinates.getX() > x ||
+                coordinates.getX() < 0 ||
+                coordinates.getY() > y ||
+                coordinates.getY() < 0;
     }
 }

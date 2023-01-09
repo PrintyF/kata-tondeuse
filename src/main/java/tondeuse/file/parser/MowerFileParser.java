@@ -22,20 +22,22 @@ public class MowerFileParser {
 
         StringBuilder finalPositions = new StringBuilder();
         List<String> read = readFile(pathFileName);
-        Mower mower = new Mower(new Coordinates(0, 0));
+        MowerMap mowerMap = null;
+        Coordinates coordinates = null;
+        Direction direction = null;
 
         for (int i = 0; i < read.size(); i++) {
-            MowerMap mowerMap;
             String[] splitLine = read.get(i).split(" ");
             if (i == 0) {
                 mowerMap = new MowerMap(Integer.parseInt(splitLine[0]), Integer.parseInt(splitLine[1]));
-                mower.setMap(mowerMap);
             }
             else if (i % 2 == 1) {
-                mower.setPosition(new Coordinates(Integer.parseInt(splitLine[0]), Integer.parseInt(splitLine[1])));
-                mower.setDirection(Direction.getDirectionFromValue(splitLine[2]));
+                coordinates = new Coordinates(Integer.parseInt(splitLine[0]), Integer.parseInt(splitLine[1]));
+                direction = Direction.getDirectionFromValue(splitLine[2]);
             }
             else {
+                Mower mower = new Mower(coordinates, mowerMap);
+                mower.setDirection(direction);
                 mower.setActions(splitLine[0]);
                 finalPositions.append(mower.getFinalPosition());
                 if (i < read.size() - 1)

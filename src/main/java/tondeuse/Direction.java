@@ -13,8 +13,8 @@ public enum Direction {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
+    public Character getValue() {
+        return value.charAt(0);
     }
 
     public static Direction getDirectionFromValue(String value) {
