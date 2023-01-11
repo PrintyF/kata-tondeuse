@@ -1,14 +1,12 @@
 package tondeuse.file.parser;
 
-import tondeuse.Coordinates;
-import tondeuse.MowerMap;
-import tondeuse.Direction;
-import tondeuse.Mower;
+import tondeuse.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MowerFileParser {
@@ -18,9 +16,9 @@ public class MowerFileParser {
         return Files.readAllLines(path);
     }
 
-    public static String getMowersFromFile(String pathFileName) throws IOException {
+    public static ArrayList<Mower> getMowersFromFile(String pathFileName) throws IOException {
 
-        StringBuilder finalPositions = new StringBuilder();
+        ArrayList<Mower> mowers = new  ArrayList<>();
         List<String> read = readFile(pathFileName);
         MowerMap mowerMap = null;
         Coordinates coordinates = null;
@@ -38,13 +36,15 @@ public class MowerFileParser {
             else {
                 Mower mower = new Mower(coordinates, mowerMap);
                 mower.setDirection(direction);
-                mower.setActions(splitLine[0]);
-                finalPositions.append(mower.getFinalPosition());
-                if (i < read.size() - 1)
-                    finalPositions.append("\n");
+                ArrayList<Action> actions = new ArrayList<>();
+                for (String action: splitLine[0].split("")) {
+                    actions.add(Action.fromValue(action.charAt(0)));
+                }
+                mower.executeActions(actions);
+                mowers.add(mower);
             }
         }
-        return finalPositions.toString();
+        return mowers;
     }
 
 }

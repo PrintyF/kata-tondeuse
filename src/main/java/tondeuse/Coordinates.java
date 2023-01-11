@@ -4,12 +4,14 @@ import util.VoidLambda;
 
 import java.util.Map;
 
+import static tondeuse.Direction.*;
+
 public class Coordinates {
-    private final Map<Character, VoidLambda> moves = Map.of(
-            'N', () -> this.y++,
-            'E', () -> this.x++,
-            'W', () -> this.x--,
-            'S', () -> this.y--);
+    private final Map<Direction, VoidLambda> moves = Map.of(
+            NORTH, () -> this.y++,
+            EAST, () -> this.x++,
+            WEST, () -> this.x--,
+            SOUTH, () -> this.y--);
     private int x;
     private int y;
 
@@ -31,7 +33,7 @@ public class Coordinates {
         this.y = coordinates.y;
     }
 
-    public Coordinates getNextCoordinates(Character direction) {
+    public Coordinates getNextCoordinates(Direction direction) {
         Coordinates next = new Coordinates(x, y);
         next.moves.get(direction).run();
         return next;
