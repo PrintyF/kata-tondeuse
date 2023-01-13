@@ -8,10 +8,10 @@ import static tondeuse.Direction.*;
 
 public class Coordinates {
     private final Map<Direction, VoidLambda> moves = Map.of(
-            NORTH, () -> this.y++,
-            EAST, () -> this.x++,
-            WEST, () -> this.x--,
-            SOUTH, () -> this.y--);
+            NORTH,  () -> this.y++,
+            EAST,   () -> this.x++,
+            WEST,   () -> this.x--,
+            SOUTH,  () -> this.y--);
     private int x;
     private int y;
 
@@ -37,5 +37,18 @@ public class Coordinates {
         Coordinates next = new Coordinates(x, y);
         next.moves.get(direction).run();
         return next;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Coordinates other) {
+            return other.x == x && other.y == y;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

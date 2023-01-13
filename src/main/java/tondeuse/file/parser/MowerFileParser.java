@@ -16,35 +16,33 @@ public class MowerFileParser {
         return Files.readAllLines(path);
     }
 
-    public static ArrayList<Mower> getMowersFromFile(String pathFileName) throws IOException {
+    public static InputSettings parseMowerFile(String pathFileName) throws IOException {
 
-        ArrayList<Mower> mowers = new  ArrayList<>();
         List<String> read = readFile(pathFileName);
-        MowerMap mowerMap = null;
-        Coordinates coordinates = null;
-        Direction direction = null;
+        InputSettings inputSettings = new InputSettings();
+        inputSettings.mowersSettings = new ArrayList<>();
+        MowerSettings mowerSettings = new MowerSettings();
 
         for (int i = 0; i < read.size(); i++) {
             String[] splitLine = read.get(i).split(" ");
+
             if (i == 0) {
-                mowerMap = new MowerMap(Integer.parseInt(splitLine[0]), Integer.parseInt(splitLine[1]));
+                inputSettings.map = new MowerMap(Integer.parseInt(splitLine[0]), Integer.parseInt(splitLine[1]));
             }
             else if (i % 2 == 1) {
-                coordinates = new Coordinates(Integer.parseInt(splitLine[0]), Integer.parseInt(splitLine[1]));
-                direction = Direction.getDirectionFromValue(splitLine[2]);
+                mowerSettings.coordinates = new Coordinates(Integer.parseInt(splitLine[0]), Integer.parseInt(splitLine[1]));
+                mowerSettings.direction = Direction.getDirectionFromValue(splitLine[2]);
             }
             else {
-                Mower mower = new Mower(coordinates, mowerMap);
-                mower.setDirection(direction);
-                ArrayList<Action> actions = new ArrayList<>();
+                mowerSettings.actions = new ArrayList<>();
                 for (String action: splitLine[0].split("")) {
-                    actions.add(Action.fromValue(action.charAt(0)));
+                    mowerSettings.actions.add(Action.fromValue(action.charAt(0)));
                 }
-                mower.executeActions(actions);
-                mowers.add(mower);
+                inputSettings.mowersSettings.add(mowerSettings);
+                mowerSettings = new MowerSettings();
             }
         }
-        return mowers;
+        return inputSettings;
     }
 
 }
