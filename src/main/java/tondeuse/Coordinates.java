@@ -3,6 +3,7 @@ package tondeuse;
 import util.VoidLambda;
 
 import java.util.Map;
+import java.util.Objects;
 
 import static tondeuse.Direction.*;
 
@@ -49,6 +50,11 @@ public class Coordinates {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(x,y);
+    }
+
+    @Override
+    public String toString() {
+        return x + " " + y;
     }
 }

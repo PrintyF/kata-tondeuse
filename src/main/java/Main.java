@@ -1,5 +1,4 @@
 import tondeuse.Mower;
-import tondeuse.MowerMap;
 import tondeuse.file.parser.InputSettings;
 import tondeuse.file.parser.MowerSettings;
 
@@ -9,14 +8,14 @@ import java.util.List;
 
 import static tondeuse.file.parser.MowerFileParser.parseMowerFile;
 
-public class Main {
+public class  Main {
         public static void main(String[] args) throws IOException {
             if (args.length > 0) {
                 InputSettings inputSettings = parseMowerFile(args[0]);
                 List<Mower> mowers = getMowersFromMowersSettings(inputSettings);
                 executeMowersActions(inputSettings, mowers);
                 for (Mower mower: mowers) {
-                    displayMower(mower);
+                    System.out.println(mower.toString());
                 }
             }
         }
@@ -34,9 +33,5 @@ public class Main {
                 mowers.get(i).executeActions(inputSettings.mowersSettings.get(i).actions, inputSettings.map);
             }
         }
-
-    private static void displayMower(Mower mower) {
-        System.out.println(mower.getCoordinates().getX() + " " + mower.getCoordinates().getY() + " " + mower.getDirection().getValue());
-    }
 
 }

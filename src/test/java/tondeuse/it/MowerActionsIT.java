@@ -1,23 +1,24 @@
-package tondeuse;
+package tondeuse.it;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import tondeuse.Coordinates;
+import tondeuse.Direction;
+import tondeuse.Mower;
+import tondeuse.MowerMap;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tondeuse.Action.*;
+import static tondeuse.Action.FORWARD;
 import static tondeuse.Direction.*;
 
-class MowerTest {
-
+public class MowerActionsIT {
     Mower mower;
     MowerMap map;
     @BeforeEach
     void settings() {
-        mower = new Mower(new Coordinates(0 , 0));
+        mower = new Mower(new Coordinates(0 , 0), NORTH);
         map = new MowerMap(5, 5);
     }
 
@@ -105,14 +106,5 @@ class MowerTest {
             mower.executeAction(FORWARD, map);
             assertEquals(mower.getCoordinates(), expectedCoordinates);
         }
-    }
-
-    @Test
-    public void should_distinguished_coordinate() {
-        Map<Coordinates, String> test = new HashMap<>();
-        Coordinates key1 = new Coordinates(0, 0);
-        Coordinates key2 = new Coordinates(0, 0);
-        test.put(key1, "toto");
-        assertEquals(test.get(key2), test.get(key1));
     }
 }

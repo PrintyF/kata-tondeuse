@@ -21,7 +21,10 @@ public class MowerFileParser {
         List<String> read = readFile(pathFileName);
         InputSettings inputSettings = new InputSettings();
         inputSettings.mowersSettings = new ArrayList<>();
-        MowerSettings mowerSettings = new MowerSettings();
+
+        Coordinates coordinates = null;
+        Direction direction = null;
+        ArrayList<Action> actions;
 
         for (int i = 0; i < read.size(); i++) {
             String[] splitLine = read.get(i).split(" ");
@@ -30,16 +33,16 @@ public class MowerFileParser {
                 inputSettings.map = new MowerMap(Integer.parseInt(splitLine[0]), Integer.parseInt(splitLine[1]));
             }
             else if (i % 2 == 1) {
-                mowerSettings.coordinates = new Coordinates(Integer.parseInt(splitLine[0]), Integer.parseInt(splitLine[1]));
-                mowerSettings.direction = Direction.getDirectionFromValue(splitLine[2]);
+                coordinates = new Coordinates(Integer.parseInt(splitLine[0]), Integer.parseInt(splitLine[1]));
+                direction = Direction.getDirectionFromValue(splitLine[2]);
             }
             else {
-                mowerSettings.actions = new ArrayList<>();
+                actions = new ArrayList<>();
                 for (String action: splitLine[0].split("")) {
-                    mowerSettings.actions.add(Action.fromValue(action.charAt(0)));
+                    actions.add(Action.fromValue(action.charAt(0)));
                 }
+                MowerSettings mowerSettings = new MowerSettings(coordinates, direction, actions);
                 inputSettings.mowersSettings.add(mowerSettings);
-                mowerSettings = new MowerSettings();
             }
         }
         return inputSettings;

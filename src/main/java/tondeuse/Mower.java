@@ -49,6 +49,11 @@ public class Mower {
         moves.get(action).run();
     }
 
+    @Override
+    public String toString() {
+        return coordinates.toString() +
+                " " + direction.getValue();
+    }
 
     public Coordinates getCoordinates() {
         return coordinates;
